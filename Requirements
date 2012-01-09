@@ -12,7 +12,7 @@ Done		IS-3.1  At initial placement, no screwels can be set with 3 or more matchi
 
 Continual Operations (CO) 38%
 Done		CO-1	Create a means of removing 3 or more contiguous Screwels.
-Not Done	CO-2	Consider a difference between vertical, horizontal, and explosive.
+Done		CO-2	Consider a difference between vertical, horizontal, and explosive.
 Done		CO-3	Non removed but existing Screwels above removed Screwels should fall into new empty spaces.
 Done		CO-4	Mana, Coin, Wisdom, or Rage should be tallied from removed Screwels.
 Done		CO-5	Remaining deficit should be replaced by new, randomly typed Screwels. 
@@ -21,7 +21,7 @@ Done		CO-7	Create a button action to handle jewel switching.
 Done		CO-8	Jewel switching action button should know whether it is selecting an initial jewel or a 2nd jewel to potentially 
 					swap with
 Done	    CO-9	User can de-select an initial jewel chosen in  error, by selecting the same gem.
-Not Done	CO-10	Create a 5 rage jewel
+Done		CO-10	Create a 5 rage jewel
 Not Done	CO-11	Create Multiplier wild jewel 
 Not Done	CO-12	Create a time sensitive hint / Consider a button option.
 Not Done	CO-13   Develop mana drain.

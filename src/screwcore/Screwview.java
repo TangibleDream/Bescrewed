@@ -35,7 +35,7 @@ public class Screwview {
 	private Container contentPane;
 	private long now;
 	private int rightcount, leftcount, topcount, bottomcount = 0;
-	Random c;
+	Random c, d;
 	private boolean done;
 	private screwels[] screwel;
 	private JButton[] pbutton;
@@ -153,6 +153,7 @@ public class Screwview {
 				// TODO Auto-generated method stub
 				Color holdcolor = pbutton[jewel1].getBackground();
 				pbutton[jewel1].setBackground(pbutton[jewel2].getBackground());
+				pbutton[jewel1].setText(pbutton[jewel2].getText());
 				pbutton[jewel2].setBackground(holdcolor);
 			}});          
 		}
@@ -178,6 +179,7 @@ public class Screwview {
 				//hack end
 		now = new Date().getTime();
 		c = new Random(now);
+		d = new Random(now);
 		for (int i = 0; i < 64; i ++){
 			gridpanel.add(pbutton[i]);
 			jewelcolor(i);
@@ -283,6 +285,9 @@ public class Screwview {
 								break;
 							case 5:
 								pbutton[i].setBackground(Color.white); //rage
+								if (d.nextInt(10) < 2){
+									pbutton[i].setText("5");
+								}
 								screwel[i].setType("white");
 								break;
 							case 6:
@@ -295,8 +300,10 @@ public class Screwview {
 						//JOptionPane.showMessageDialog(frame, "Dropdown " + i);
 						screwel[i].setType(screwel[i-8].getType());
 						pbutton[i].setBackground(pbutton[i-8].getBackground());
+						pbutton[i].setText(pbutton[i-8].getText());
 						screwel[i-8].setType("black");
 						pbutton[i-8].setBackground(Color.black);
+						pbutton[i-8].setText("");
 					}
 					blackcount ++;
 					//JOptionPane.showMessageDialog(frame, "done = " + done + " blackcount = " + blackcount);
@@ -320,10 +327,11 @@ public class Screwview {
 		for (int i = 0 ; i < 64; i ++){
 		if (screwel[i].ToRemove()){
 			pbutton[i].setBackground(Color.black);
+			pbutton[i].setText("");
 			screwel[i].setToRemove(false);
 		}
 	}
-		
+		JOptionPane.showMessageDialog(frame, "See Black!");	
 	}
 
 
@@ -390,7 +398,23 @@ public class Screwview {
 			}
 			if (bottomcount + topcount > 1 || leftcount + rightcount > 1){
 				screwel[i].setToRemove(true);
-				rob.setMana(pbutton[i].getBackground(), rob.getMana(pbutton[i].getBackground()) + 1);			
+				if (pbutton[i].getText()=="5"){
+					if (screwels.getY() > 0) screwel[i-1].setToRemove(true);
+					if (screwels.getY() < 7) screwel[i+1].setToRemove(true);
+					if (screwels.getX() > 0) screwel[i-8].setToRemove(true);
+					if (screwels.getX() < 7) screwel[i+8].setToRemove(true);
+					if (screwels.getY() > 0 && screwels.getX() > 0) screwel[i-9].setToRemove(true);
+					if (screwels.getY() < 7 && screwels.getX() < 7) screwel[i+9].setToRemove(true);
+					if (screwels.getY() > 0 && screwels.getX() < 7) screwel[i+7].setToRemove(true);
+					if (screwels.getY() < 7 && screwels.getX() > 0) screwel[i-7].setToRemove(true);
+				}
+				/*Add 5 Bomb Logic here
+				 * 
+				 * */
+				rob.setMana(pbutton[i].getBackground(), rob.getMana(pbutton[i].getBackground()) + 1);
+				if (pbutton[i].getText()=="5"){
+				rob.setMana(Color.white, (rob.getMana(Color.white) + 4));	
+				}
 			}
 		}
 		
