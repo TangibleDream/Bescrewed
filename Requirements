@@ -1,0 +1,49 @@
+Bescrewed for Java!!!
+Another game ripoff in Swing Java
+
+Requirements.
+
+Initial Setup (IS) 100%
+Done		IS-1	Create Grid of 64 Places
+Done		IS-2	Create 7 Screwel types
+Done		IS-3	Fill 64 places with screwels of different types at random with some constraints.
+Done		IS-3.1  At initial placement, no screwels can be set with 3 or more matching screwels in a role, either horizontal 
+					or vertical.
+
+Continual Operations (CO) 38%
+Done		CO-1	Create a means of removing 3 or more contiguous Screwels.
+Not Done	CO-2	Consider a difference between vertical, horizontal, and explosive.
+Done		CO-3	Non removed but existing Screwels above removed Screwels should fall into new empty spaces.
+Done		CO-4	Mana, Coin, Wisdom, or Rage should be tallied from removed Screwels.
+Done		CO-5	Remaining deficit should be replaced by new, randomly typed Screwels. 
+Not Done    CO-6	Add an exit button.
+Done		CO-7	Create a button action to handle jewel switching.
+Done		CO-8	Jewel switching action button should know whether it is selecting an initial jewel or a 2nd jewel to potentially 
+					swap with
+Done	    CO-9	User can de-select an initial jewel chosen in  error, by selecting the same gem.
+Not Done	CO-10	Create a 5 rage jewel
+Not Done	CO-11	Create Multiplier wild jewel 
+Not Done	CO-12	Create a time sensitive hint / Consider a button option.
+Not Done	CO-13   Develop mana drain.
+Not Done    CO-14	Start crafting a spell.
+Not	Done	CO-15	Set maximum manas extended by level increase.
+Look and feel (LF) 50%
+Not Done	LF-1	Secure icons for each screweled. Try for shiny colors for mana and rage (white), A coin for gold.
+Done		LF-2	An initially selected gem is indicated by a reverse color of button border.
+Not Done	LF-3	Tool system for a two player option.
+Done		LF-4	Use Labels for scores over JOption messages to allow for continuous play,
+Not Done	LF-5	Slow down gravity feed so user can see combo action.
+
+Classwork (CW) 100%
+Done		CW-1	Remove location attribute as it is covered in the view class
+Done		CW-2	Add black Screwel type to indicate a removed Screwel.
+Done		CW-3	Add boolean to be removed, defaulted to false.
+Done		CW-4	Create a companion array for 64 screwels.
+Done		CW-5	Sub method your blackify and gravity methods within the viewform for code reuse.
+Done		CW-6	Create player class to track mana, rage, and experience.
+
+Calculations (CL) 66%
+
+Done		CL-1	Create a gridnumber to x,y calculation function.
+Not Done	CL-2	Modify contiguous check for initial run vs. player run.
+Done		CL-3	Determine through code if a user initiated jewel switch is viable.
