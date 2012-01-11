@@ -2,6 +2,7 @@ package screwcore;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.RenderingHints;
@@ -44,7 +45,7 @@ public class Screwview {
 	private int combocnt = 0;
 	private Player rob;
 	private ImageIcon red, green, blue, yellow;
-	private JLabel stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold;
+	private JLabel stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold, gwsmAddHoc;
 	
 	
 	
@@ -64,6 +65,7 @@ public class Screwview {
         frame.setSize(431, 341); //325,341 
         frame.setResizable(false);
         panel = new JPanel();
+        panel.setBackground(Color.black);
     	contentPane = (JPanel)frame.getContentPane();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         gridpanel = new JPanel();
@@ -152,9 +154,11 @@ public class Screwview {
 			private void switchout() {
 				// TODO Auto-generated method stub
 				Color holdcolor = pbutton[jewel1].getBackground();
+				String holdtext = pbutton[jewel1].getText();
 				pbutton[jewel1].setBackground(pbutton[jewel2].getBackground());
 				pbutton[jewel1].setText(pbutton[jewel2].getText());
 				pbutton[jewel2].setBackground(holdcolor);
+				pbutton[jewel2].setText(holdtext);
 			}});          
 		}
 		///Hackety Hack
@@ -198,17 +202,43 @@ public class Screwview {
 		
 		//Jewel Layout (IS-3)
 		JPanel columnpanel = new JPanel();
+		columnpanel.setBackground(Color.black);
 		columnpanel.setLayout(new BoxLayout(columnpanel, BoxLayout.Y_AXIS));
-		columnpanel.add(new JLabel("Player Statistics"));
-		columnpanel.add(new JLabel("Red Mana:"));
-		columnpanel.add(new JLabel("Blue Mana:"));
-		columnpanel.add(new JLabel("Yellow Mana:"));
-		columnpanel.add(new JLabel("Green Mana:"));
-		columnpanel.add(new JLabel("Rage:"));
-		columnpanel.add(new JLabel("Exp:"));
-		columnpanel.add(new JLabel("Gold:"));
+		JLabel titlelabel = new JLabel("Player Statistics");
+		JLabel redlabel = new JLabel("Red Mana:");
+		JLabel bluelabel = new JLabel("Blue Mana:");
+		JLabel yellowlabel = new JLabel("Yellow Mana:");
+		JLabel greenlabel = new JLabel("Green Mana:");
+		JLabel ragelabel = new JLabel("Rage");
+		JLabel explabel = new JLabel("Exp");
+		JLabel goldlabel = new JLabel("Gold");
+		titlelabel.setForeground(Color.white);
+		titlelabel.setFont(new Font("Monotype Corsiva", Font.BOLD, 14));
+		redlabel.setForeground(Color.white);
+		redlabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		bluelabel.setForeground(Color.white);
+		bluelabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		yellowlabel.setForeground(Color.white);
+		yellowlabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		greenlabel.setForeground(Color.white);
+		greenlabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		ragelabel.setForeground(Color.white);
+		ragelabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		explabel.setForeground(Color.white);
+		explabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		goldlabel.setForeground(Color.white);
+		goldlabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		columnpanel.add(titlelabel);
+		columnpanel.add(redlabel);
+		columnpanel.add(bluelabel);
+		columnpanel.add(yellowlabel);
+		columnpanel.add(greenlabel);
+		columnpanel.add(ragelabel);
+		columnpanel.add(explabel);
+		columnpanel.add(goldlabel);
 		
 		JPanel statpanel = new JPanel();
+		statpanel.setBackground(Color.black);
 		statpanel.setLayout(new BoxLayout(statpanel, BoxLayout.Y_AXIS));
 		statred = new JLabel("0000");
 		statblue = new JLabel("0000");
@@ -217,6 +247,13 @@ public class Screwview {
 		statrage = new JLabel("0000");
 		statexp = new JLabel("0000");
 		statgold = new JLabel("0000");
+		statred.setForeground(Color.white);
+		statblue.setForeground(Color.white);
+		statyellow.setForeground(Color.white);
+		statgreen.setForeground(Color.white);
+		statrage.setForeground(Color.white);
+		statexp.setForeground(Color.white);
+		statgold.setForeground(Color.white);
 		statpanel.add(new JLabel("____"));
 		statpanel.add(statred);
 		statpanel.add(statblue);
@@ -261,7 +298,7 @@ public class Screwview {
 						//JOptionPane.showMessageDialog(frame, "Random at top " + i);
 						//now =  new Date().getTime();
 						//c = new Random(now);
-							switch  (c.nextInt(7))
+							switch  (c.nextInt(8))
 							{
 							case 0:
 								pbutton[i].setBackground(Color.red);
@@ -293,6 +330,13 @@ public class Screwview {
 							case 6:
 								pbutton[i].setBackground(Color.orange); //gold
 								screwel[i].setType("orange");
+								break;
+							case 7:
+								pbutton[i].setBackground(Color.cyan); //multiplier
+								int x = d.nextInt(4)+1;
+								pbutton[i].setText("X" + x);
+								screwel[i].setType("cyan");
+								screwel[i].setMulti(x);
 								break;
 							}
 					}
@@ -329,9 +373,22 @@ public class Screwview {
 			pbutton[i].setBackground(Color.black);
 			pbutton[i].setText("");
 			screwel[i].setToRemove(false);
+			frame.pack();
+			frame.setSize(431, 341);
 		}
 	}
-		JOptionPane.showMessageDialog(frame, "See Black!");	
+		/*try
+
+		{
+			Thread.sleep(1000);
+		} catch (InterruptedException ie)
+
+		{
+
+			ie.printStackTrace();
+
+		}*/ //Doesn't Work
+		//JOptionPane.showMessageDialog(frame, "See Black!");	
 	}
 
 

@@ -6,6 +6,7 @@ public class screwels {
 	private static int xcoord;
 	private static int ycoord = -1;
 	private boolean toRemove = false;
+	private int multiplier = 1;
 	
 	
 	
@@ -49,6 +50,9 @@ public class screwels {
 	public void setToRemove(boolean choice){
 		toRemove = choice;
 	}
+	public void setMulti(int value){
+		multiplier = value;
+	}
 	//Getters
 	public String getType(){
 		return type;
@@ -65,6 +69,9 @@ public class screwels {
 	public boolean ToRemove(){
 		return toRemove;
 	}
+	public int getMulti(){
+		return multiplier;
+	}
 	// calculations
 	public void calcXY(int gn){
 		int x,y  = -1;
@@ -75,5 +82,4 @@ public class screwels {
 		xcoord = x;
 		ycoord = y;
 	}
-
 }
