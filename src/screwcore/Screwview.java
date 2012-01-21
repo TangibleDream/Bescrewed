@@ -2,6 +2,7 @@ package screwcore;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -47,10 +48,15 @@ public class Screwview {
 	private ImageIcon red, green, blue, yellow;
 	private JLabel stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold, gwsmAddHoc;
 	private JButton exitbutton;
+	private screwels tracker;
 	
 	
 	
 	public void screwForm(){
+		//final int SIZE = 75;	
+		tracker = new screwels();
+		tracker.setThrottle(0);
+		tracker.setThrottlerate(3);
 		rob = new Player();
 		screwel = new screwels[64];
 		pbutton = new JButton[64];
@@ -63,7 +69,7 @@ public class Screwview {
 		}
 		frame = new JFrame("Bescrewed");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(431, 341); //325,341 
+        frame.setSize(568, 455); //574,455 
         //frame.setResizable(false);
         panel = new JPanel();
         panel.setBackground(Color.black);
@@ -71,6 +77,7 @@ public class Screwview {
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         gridpanel = new JPanel();
         gridpanel.setLayout(new GridLayout(8,8));
+        //gridpanel.setPreferredSize(new Dimension(8 * SIZE, 8 * SIZE)); 
         //GRID BUTTONS (IS-1)
 		for (int i = 0; i < 64; i ++){
 			final int fint = i;
@@ -339,11 +346,18 @@ public class Screwview {
 								screwel[i].setType("orange");
 								break;
 							case 7:
-								pbutton[i].setBackground(Color.cyan); //multiplier
-								int x = d.nextInt(3)+2;
-								pbutton[i].setText("X" + x);
-								screwel[i].setType("cyan");
-								screwel[i].setMulti(x);
+								if (tracker.getThrottle() == tracker.getThrottlerate()){
+									pbutton[i].setBackground(Color.cyan); //multiplier
+									int x = d.nextInt(3)+2;
+									pbutton[i].setText("X" + x);
+									screwel[i].setType("cyan");
+									screwel[i].setMulti(x);
+									tracker.setThrottle(0);
+								}
+								else {
+									tracker.setThrottle(tracker.getThrottle()+1);
+									i = i - 1;
+								}
 								break;
 							}
 					}

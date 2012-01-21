@@ -9,11 +9,10 @@ Done		IS-3	Fill 64 places with screwels of different types at random with some c
 Continual Operations (CO) 38%
 Not Done	CO-11	Moderate	Create Multiplier wild jewel 
 Not Done	CO-12	Difficult	Create a time sensitive hint / Consider a button option.
-Not Done	CO-13   Difficult	Develop mana drain.
 Not Done    CO-14	Difficult	Start crafting a spell.
 Not	Done	CO-15	Moderate	Set maximum manas extended by level increase.
 Not Done	CO-16	Moderate	Jewels can only switch with adjacent Jewel, Top/Bottom or Left/Right only.
-Done		CO-17	Easy		Jewels attributes color and text must both switch.
+Done		CO-18	Easy		Create throttle for Multiplier gems.
  
 Look and feel (LF) 50%
 Not Done	LF-1	Difficult	Secure icons for each screweled. Try for shiny colors for mana and rage (white), A coin for gold.
@@ -27,7 +26,8 @@ Not Done	CW-7	Moderate	Add Player Level Logic, attach max mana.
 Calculations (CL) 100%
 
 Done		CL-3	Determine through code if a user initiated jewel switch is viable.
+Not Done	CL-4	Difficult	Create NPC
 
 Swing Specific (SS) 0%
 
-Not Done	SW-1	Difficult	Grid should remain stable despite the entry of text. (pack()?, margins & padding?) 
+Done		SW-1	Difficult	Grid should remain stable despite the entry of text. (Sizing fixed it.) 

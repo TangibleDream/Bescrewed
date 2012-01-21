@@ -24,11 +24,12 @@ Done	    CO-9	User can de-select an initial jewel chosen in  error, by selecting
 Done		CO-10	Create a 5 rage jewel
 Not Done	CO-11	Create Multiplier wild jewel 
 Not Done	CO-12	Create a time sensitive hint / Consider a button option.
-Not Done	CO-13   Develop mana drain.
+Done		CO-13   Develop mana drain.
 Not Done    CO-14	Start crafting a spell.
 Not	Done	CO-15	Set maximum manas extended by level increase.
 Not Done	CO-16	Jewels can only switch with adjacent Jewel, Top/Bottom or Left/Right only.
 Done		CO-17	Jewels attributes color and text must both switch.
+Done		CO-18	Create throttle for Multiplier gems.
  
 Look and feel (LF) 50%
 Not Done	LF-1	Secure icons for each screweled. Try for shiny colors for mana and rage (white), A coin for gold.
@@ -47,12 +48,13 @@ Done		CW-5	Sub method your blackify and gravity methods within the viewform for 
 Done		CW-6	Create player class to track mana, rage, and experience.
 Not Done	CW-7	Add Player Level Logic, attach max mana.
 
-Calculations (CL) 100%
+Calculations (CL) 75%
 
 Done		CL-1	Create a gridnumber to x,y calculation function.
 Done		CL-2	Modify contiguous check for initial run vs. player run.
 Done		CL-3	Determine through code if a user initiated jewel switch is viable.
+Not Done	CL-4	Difficult	Create NPC
 
-Swing Specific (SS) 0%
+Swing Specific (SS) 100%
 
-Not Done	SW-1	Grid should remain stable despite the entry of text.
+Done		SW-1	Grid should remain stable despite the entry of text.

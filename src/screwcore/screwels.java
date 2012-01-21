@@ -10,6 +10,8 @@ public class screwels {
 	private boolean toRemove = false;
 	private int multiplier = 1;
 	private Color mcolor1, mcolor2, mcolor3 = Color.gray;
+	private int throttlenumber = 0;
+	private int throttlerate = 10;
 	
 	
 	
@@ -65,6 +67,12 @@ public class screwels {
 	public void setMColor3(Color value){
 		mcolor3 = value;
 	}
+	public void setThrottle(int value){ //CO-18
+		throttlenumber = value;
+	}
+	public void setThrottlerate(int value){//CO-18
+		throttlerate = value;
+	}
 	//Getters
 	public Color getMColor1(){
 		return mcolor1;
@@ -92,6 +100,12 @@ public class screwels {
 	}
 	public int getMulti(){
 		return multiplier;
+	}
+	public int getThrottle(){//CO-18
+		return throttlenumber;
+	}
+	public int getThrottlerate(){//CO-18
+		return throttlerate;
 	}
 	// calculations
 	public static void calcXY(int gn){
