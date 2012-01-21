@@ -1,5 +1,7 @@
 package screwcore;
 
+import java.awt.Color;
+
 public class screwels {
 	private String type = "null";
 	private int gridcoord = -1;
@@ -7,6 +9,7 @@ public class screwels {
 	private static int ycoord = -1;
 	private boolean toRemove = false;
 	private int multiplier = 1;
+	private Color mcolor1, mcolor2, mcolor3 = Color.gray;
 	
 	
 	
@@ -53,7 +56,25 @@ public class screwels {
 	public void setMulti(int value){
 		multiplier = value;
 	}
+	public void setMColor1(Color value){
+		mcolor1 = value;
+	}
+	public void setMColor2(Color value){
+		mcolor2 = value;
+	}
+	public void setMColor3(Color value){
+		mcolor3 = value;
+	}
 	//Getters
+	public Color getMColor1(){
+		return mcolor1;
+	}
+	public Color getMColor2(){
+		return mcolor2;
+	}
+	public Color getMColor3(){
+		return mcolor3;
+	}
 	public String getType(){
 		return type;
 	}
@@ -73,7 +94,7 @@ public class screwels {
 		return multiplier;
 	}
 	// calculations
-	public void calcXY(int gn){
+	public static void calcXY(int gn){
 		int x,y  = -1;
 		//calc x
 		x = gn / 8;

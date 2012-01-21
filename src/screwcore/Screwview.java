@@ -32,7 +32,7 @@ import javax.swing.border.SoftBevelBorder;
 public class Screwview {
 	
 	private JFrame frame;
-	private JPanel panel, gridpanel, columnpanel, statpanel;
+	private JPanel panel, gridpanel, columnpanel, statpanel, cologridpanel, sidepanel;
 	private Container contentPane;
 	private long now;
 	private int rightcount, leftcount, topcount, bottomcount = 0;
@@ -46,6 +46,7 @@ public class Screwview {
 	private Player rob;
 	private ImageIcon red, green, blue, yellow;
 	private JLabel stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold, gwsmAddHoc;
+	private JButton exitbutton;
 	
 	
 	
@@ -63,7 +64,7 @@ public class Screwview {
 		frame = new JFrame("Bescrewed");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(431, 341); //325,341 
-        frame.setResizable(false);
+        //frame.setResizable(false);
         panel = new JPanel();
         panel.setBackground(Color.black);
     	contentPane = (JPanel)frame.getContentPane();
@@ -95,14 +96,14 @@ public class Screwview {
         			//JOptionPane.showMessageDialog(frame, "Jewel2 code is running" + fint );
         			combocnt = 0;
         			switchout();
-        			contiguouscheck();
+        			contiguouscheck(false);
         			if (isSwitchable()){
         			blackify();
         			while (isBlack()){
         			gravityfeed();
         			//JOptionPane.showMessageDialog(frame, "Combo number #" + combocnt );
         			combocnt ++;
-        			contiguouscheck();
+        			contiguouscheck(false);
         			blackify();
         			/*JOptionPane.showMessageDialog(frame, "Rob's Score \n" +
        					 "Red Mana:     " + rob.getMana(Color.red) + "\n" +
@@ -112,18 +113,16 @@ public class Screwview {
        					 "Rage:  		" + rob.getMana(Color.white) + "\n" +
        					 "Exp:  		" + rob.getMana(Color.magenta) + "\n" +
        					 "Gold: 		" + rob.getMana(Color.orange));*/
-        			statred.setText(String.valueOf(rob.getMana(Color.red)));
-        			statblue.setText(String.valueOf(rob.getMana(Color.blue)));
-        			statyellow.setText(String.valueOf(rob.getMana(Color.yellow)));
-        			statgreen.setText(String.valueOf(rob.getMana(Color.green)));
-        			statrage.setText(String.valueOf(rob.getMana(Color.white)));
-        			statexp.setText(String.valueOf(rob.getMana(Color.magenta)));
-        			statgold.setText(String.valueOf(rob.getMana(Color.orange)));
+        			updatescore();
         			}
         			Border lineBorder = new LineBorder(Color.gray);
         			pbutton[jewel1].setBorder(lineBorder);
         			jewel1 = -1;
         			jewel2 = -2;
+        			if (!isMannable()){
+        				JOptionPane.showMessageDialog(frame, "Mana Drain");
+        				manadrain();
+        			}
         			}
         			else
         			{
@@ -140,16 +139,7 @@ public class Screwview {
         		}
             }
 
-			private boolean isSwitchable() {
-				// TODO Auto-generated method stub
-				boolean sval = false;
-				for(int i = 0; i < 64; i ++){
-					if (screwel[i].ToRemove()){
-						sval = true;
-					}
-				}
-				return sval;
-			}
+			
 
 			private void switchout() {
 				// TODO Auto-generated method stub
@@ -192,14 +182,20 @@ public class Screwview {
 		}
 		//JOptionPane.showMessageDialog(frame, "This is okay");
 		//Initial check for 3+ in a row/column
-		contiguouscheck();
+		contiguouscheck(true);
 		blackify();
 		while (isBlack()){
 		gravityfeed();
-		contiguouscheck();
+		contiguouscheck(true);
 		blackify();
 		}
-		
+		//Fix for exit button (CO-6)
+		JPanel sidepanel = new JPanel();
+		sidepanel.setBackground(Color.black);
+		sidepanel.setLayout(new BoxLayout(sidepanel, BoxLayout.Y_AXIS));
+		JPanel cologridpanel = new JPanel();
+		cologridpanel.setBackground(Color.black);
+		cologridpanel.setLayout(new BoxLayout(cologridpanel, BoxLayout.X_AXIS));
 		//Jewel Layout (IS-3)
 		JPanel columnpanel = new JPanel();
 		columnpanel.setBackground(Color.black);
@@ -254,6 +250,13 @@ public class Screwview {
 		statrage.setForeground(Color.white);
 		statexp.setForeground(Color.white);
 		statgold.setForeground(Color.white);
+		JButton exitbutton = new JButton("Exit");
+		exitbutton.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
 		statpanel.add(new JLabel("____"));
 		statpanel.add(statred);
 		statpanel.add(statblue);
@@ -262,10 +265,14 @@ public class Screwview {
 		statpanel.add(statrage);
 		statpanel.add(statexp);
 		statpanel.add(statgold);
+		
         //end here
         panel.add(gridpanel);
-        panel.add(columnpanel);
-        panel.add(statpanel);
+        cologridpanel.add(columnpanel);
+        cologridpanel.add(statpanel);
+        sidepanel.add(cologridpanel);
+        sidepanel.add(exitbutton);
+        panel.add(sidepanel);
         contentPane.add(panel);
         frame.setVisible(true);
 	}
@@ -283,7 +290,7 @@ public class Screwview {
 		return rval;
 	}
 
-
+	
 
 	private void gravityfeed() {
 		// TODO Auto-generated method stub
@@ -333,7 +340,7 @@ public class Screwview {
 								break;
 							case 7:
 								pbutton[i].setBackground(Color.cyan); //multiplier
-								int x = d.nextInt(4)+1;
+								int x = d.nextInt(3)+2;
 								pbutton[i].setText("X" + x);
 								screwel[i].setType("cyan");
 								screwel[i].setMulti(x);
@@ -373,8 +380,8 @@ public class Screwview {
 			pbutton[i].setBackground(Color.black);
 			pbutton[i].setText("");
 			screwel[i].setToRemove(false);
-			frame.pack();
-			frame.setSize(431, 341);
+			/*frame.pack();
+			frame.setSize(431, 341);*/
 		}
 	}
 		/*try
@@ -388,23 +395,23 @@ public class Screwview {
 			ie.printStackTrace();
 
 		}*/ //Doesn't Work
-		//JOptionPane.showMessageDialog(frame, "See Black!");	
+		//JOptionPane.showMessageDialog(frame, "See Black! ");	
 	}
 
 
 
-	private void contiguouscheck() {
+	private void contiguouscheck(boolean value) { //boolean is for CL-2
 		// TODO Auto-generated method stub
-		for (int i = 0; i <64; i ++){
-			leftcount = 0;
+		for (int i = 0; i <64; i ++){  //The process is repeated for each button.
+			leftcount = 0;			   //1st Resets counters for contiguous count
 			rightcount = 0;
 			topcount = 0;
 			bottomcount = 0;
 			done = false;
-			screwel[i].calcXY(i);
+			screwel[i].calcXY(i);	  //2nd Calculates XY coordinate.
 			while (done == false){
-			if ((screwels.getY()+rightcount) < 7){
-				if (pbutton[i].getBackground() == pbutton[i+1+rightcount].getBackground()){
+			if ((screwels.getY()+rightcount) < 7){  //3rd determine how many contiguous jewels to the right?
+				if (pbutton[i].getBackground() == pbutton[i+1+rightcount].getBackground() || pbutton[i+1+rightcount].getBackground() == Color.cyan){
 					rightcount ++;
 					//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Right Count = "+ rightcount + " " + pbutton[i].getBackground());
 				}
@@ -416,8 +423,8 @@ public class Screwview {
 			}
 			done = false;
 			while (done == false){
-			if ((screwels.getY()-leftcount) > 0){
-				if (pbutton[i].getBackground() == pbutton[(i-1)-leftcount].getBackground()){
+			if ((screwels.getY()-leftcount) > 0){ //4th determine how many contiguous jewels to the left?
+				if (pbutton[i].getBackground() == pbutton[(i-1)-leftcount].getBackground() || pbutton[(i-1)-leftcount].getBackground() == Color.cyan){
 					leftcount ++;
 					//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Left Count = "+ leftcount);
 				}
@@ -429,8 +436,8 @@ public class Screwview {
 			}
 			done = false;
 			while (done == false){
-			if ((screwels.getX()-topcount) > 0){
-				if (pbutton[i].getBackground() == pbutton[(i-8)-(8*topcount)].getBackground()){
+			if ((screwels.getX()-topcount) > 0){ //5th determine how many contiguous jewels above?
+				if (pbutton[i].getBackground() == pbutton[(i-8)-(8*topcount)].getBackground() || pbutton[(i-8)-(8*topcount)].getBackground() == Color.cyan){
 					topcount ++;
 					//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Top Count = "+ topcount);
 				}
@@ -442,8 +449,8 @@ public class Screwview {
 			}
 			done = false;
 			while (done == false){
-			if ((screwels.getX()+bottomcount) < 7){
-				if (pbutton[i].getBackground() == pbutton[(i+8)+(8*bottomcount)].getBackground()){
+			if ((screwels.getX()+bottomcount) < 7){ //6th determine how many contiguous jewels below?
+				if (pbutton[i].getBackground() == pbutton[(i+8)+(8*bottomcount)].getBackground() || pbutton[i+8+(8*bottomcount)].getBackground() == Color.cyan){
 					bottomcount ++;
 					//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Bottom Count = "+ bottomcount);
 				}
@@ -453,7 +460,7 @@ public class Screwview {
 			else{
 				done = true;}
 			}
-			if (bottomcount + topcount > 1 || leftcount + rightcount > 1){
+			if (bottomcount + topcount > 1 || leftcount + rightcount > 1){ //7th determine if enough contiguous jewels to remove
 				screwel[i].setToRemove(true);
 				if (pbutton[i].getText()=="5"){
 					if (screwels.getY() > 0) screwel[i-1].setToRemove(true);
@@ -468,16 +475,16 @@ public class Screwview {
 				/*Add 5 Bomb Logic here
 				 * 
 				 * */
-				rob.setMana(pbutton[i].getBackground(), rob.getMana(pbutton[i].getBackground()) + 1);
-				if (pbutton[i].getText()=="5"){
-				rob.setMana(Color.white, (rob.getMana(Color.white) + 4));	
+				if (value == false){  //CL-2
+					rob.setMana(pbutton[i].getBackground(), rob.getMana(pbutton[i].getBackground()) + 1); //8th attribute mana for removed jewels
+					if (pbutton[i].getText()=="5"){ //9th allow for 5 rage explosive jewels
+						rob.setMana(Color.white, (rob.getMana(Color.white) + 4));
+					}
 				}
 			}
 		}
 		
 	}
-
-
 
 	private void jewelcolor(int i) {
 		// TODO Auto-generated method stub
@@ -507,4 +514,118 @@ public class Screwview {
 			break;
 		}
 	}
+	
+	private boolean isMannable() { //For CO-12, CO-13
+		boolean value = false;
+		int count = 0;
+		while (value == false && count < 64){ //1. For each button...
+			screwels.calcXY(count);
+			if (screwels.getY() < 5)		  //2. Right check
+			{
+				if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count+3].getBackground()){
+					value = true;			 // 2.1 Flat Across One
+				}
+				if (pbutton[count].getBackground() == pbutton[count+2].getBackground() && pbutton[count].getBackground() == pbutton[count+3].getBackground()){
+					value = true;			 // //2.2 Flat Across Two
+				}
+				if (screwels.getX() > 0){	 // 2.3 Check for frown.
+					if (pbutton[count].getBackground() == pbutton[count-7].getBackground() && pbutton[count].getBackground() == pbutton[count+2].getBackground()){
+						value = true;
+					}
+					if (pbutton[count].getBackground() == pbutton[count-7].getBackground() && pbutton[count].getBackground() == pbutton[count-6].getBackground()){
+						value = true;		// 2.4 Backward 7 (BUG?)
+					}
+					if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count-6].getBackground()){
+						value = true;		// 2.5 Backward L
+					}
+					
+				}
+				if (screwels.getX() < 7){	 // 2.6 Check for smile.
+					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+2].getBackground()){
+						value = true;
+					}
+					if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count+10].getBackground()){
+						value = true;	     // 2.7 Check 7.
+					}
+					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+10].getBackground()){
+						value = true;	     // 2.8 Check L. (BUG?)
+					}
+				}
+			}
+			
+			if (screwels.getX() < 5)		  //3. Bottom check
+			{
+				if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+24].getBackground()){
+					value = true; // 3.1 Flat Down one
+				}
+				if (pbutton[count].getBackground() == pbutton[count+16].getBackground() && pbutton[count].getBackground() == pbutton[count+24].getBackground()){
+					value = true; // 3.2 Flat Down Two
+				}
+				if (screwels.getY() <7){
+					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+16].getBackground()){
+						value = true; // 3.3 Close Parenthesis
+					}
+					if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+17].getBackground()){
+						value = true; // 3.4 Long L
+					}
+					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+17].getBackground()){
+						value = true; // 3.5 Long 7
+					}
+				}
+				if (screwels.getY() > 0){
+					if (pbutton[count].getBackground() == pbutton[count+7].getBackground() && pbutton[count].getBackground() == pbutton[count+16].getBackground()){
+						value = true; // 3.6 Open Parenthesis
+					}
+					if (pbutton[count].getBackground() == pbutton[count+7].getBackground() && pbutton[count].getBackground() == pbutton[count+15].getBackground()){
+						value = true; // 3.7 Long Backwards 7
+					}
+					if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+15].getBackground()){
+						value = true; // 3.8 J
+					}
+				}
+			}
+			
+		count ++;
+		}
+		return value;
+	}
+	private void manadrain(){
+		for (int i = 0; i < 64; i ++){
+			pbutton[i].setBackground(Color.black);
+		}
+		contiguouscheck(false);
+		if (isSwitchable()){
+		blackify();
+		while (isBlack()){
+		gravityfeed();
+		//JOptionPane.showMessageDialog(frame, "Combo number #" + combocnt );
+		combocnt ++;
+		contiguouscheck(false);
+		blackify();
+		rob.setMana(Color.red, 0);
+		rob.setMana(Color.blue, 0);
+		rob.setMana(Color.yellow, 0);
+		rob.setMana(Color.green, 0);
+		updatescore();
+	}
+		}}
+		private boolean isSwitchable() {
+			// TODO Auto-generated method stub
+			boolean sval = false;
+			for(int i = 0; i < 64; i ++){
+				if (screwel[i].ToRemove()){
+					sval = true;
+				}
+			}
+			return sval;
+	}
+		public void updatescore(){
+			statred.setText(String.valueOf(rob.getMana(Color.red)));
+			statblue.setText(String.valueOf(rob.getMana(Color.blue)));
+			statyellow.setText(String.valueOf(rob.getMana(Color.yellow)));
+			statgreen.setText(String.valueOf(rob.getMana(Color.green)));
+			statrage.setText(String.valueOf(rob.getMana(Color.white)));
+			statexp.setText(String.valueOf(rob.getMana(Color.magenta)));
+			statgold.setText(String.valueOf(rob.getMana(Color.orange)));
+		}
 }

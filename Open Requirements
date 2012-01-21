@@ -7,7 +7,6 @@ Initial Setup (IS) 100%
 Done		IS-3	Fill 64 places with screwels of different types at random with some constraints.
 
 Continual Operations (CO) 38%
-Not Done    CO-6	Easy		Add an exit button.
 Not Done	CO-11	Moderate	Create Multiplier wild jewel 
 Not Done	CO-12	Difficult	Create a time sensitive hint / Consider a button option.
 Not Done	CO-13   Difficult	Develop mana drain.
@@ -25,11 +24,10 @@ Done		LF-6	Easy		Create nice look and feel for mana scoring (White on black, nic
 Classwork (CW) 100%
 Not Done	CW-7	Moderate	Add Player Level Logic, attach max mana.
 
-Calculations (CL) 66%
+Calculations (CL) 100%
 
-Not Done	CL-2	Moderate	Modify contiguous check for initial run vs. player run.
 Done		CL-3	Determine through code if a user initiated jewel switch is viable.
 
 Swing Specific (SS) 0%
 
-Not Done	SW-1	Difficult	Grid should remain stable despite the entry of text.
+Not Done	SW-1	Difficult	Grid should remain stable despite the entry of text. (pack()?, margins & padding?) 
