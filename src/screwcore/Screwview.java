@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,7 +34,7 @@ import javax.swing.border.SoftBevelBorder;
 public class Screwview {
 	
 	private JFrame frame;
-	private JPanel panel, gridpanel, columnpanel, statpanel, cologridpanel, sidepanel;
+	private JPanel panel, selectionpanel, heroaddpanel, gridpanel, columnpanel, statpanel, cologridpanel, sidepanel;
 	private Container contentPane;
 	private long now;
 	private int rightcount, leftcount, topcount, bottomcount = 0;
@@ -46,14 +47,16 @@ public class Screwview {
 	private int combocnt = 0;
 	private Player rob;
 	private ImageIcon red, green, blue, yellow;
-	private JLabel stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold, gwsmAddHoc;
-	private JButton exitbutton;
+	private JLabel namelabel, stattitle, statred, statblue, statyellow, statgreen, statrage, statexp, statgold, gwsmAddHoc;
+	private JButton exitbutton, newbutton, selectbutton, submitbutton;
+	private JTextField heronamefield;
 	private screwels tracker;
+	private JComboBox playcombo;
+	private String hero;
 	
 	
 	
 	public void screwForm(){
-		//final int SIZE = 75;	
 		tracker = new screwels();
 		tracker.setThrottle(0);
 		tracker.setThrottlerate(3);
@@ -207,6 +210,7 @@ public class Screwview {
 		JPanel columnpanel = new JPanel();
 		columnpanel.setBackground(Color.black);
 		columnpanel.setLayout(new BoxLayout(columnpanel, BoxLayout.Y_AXIS));
+		final JLabel namelabel = new JLabel("Player Level 0");
 		JLabel titlelabel = new JLabel("Player Statistics");
 		JLabel redlabel = new JLabel("Red Mana:");
 		JLabel bluelabel = new JLabel("Blue Mana:");
@@ -215,6 +219,8 @@ public class Screwview {
 		JLabel ragelabel = new JLabel("Rage");
 		JLabel explabel = new JLabel("Exp");
 		JLabel goldlabel = new JLabel("Gold");
+		namelabel.setForeground(Color.white);
+		namelabel.setFont(new Font("Monotype Corsiva", Font.BOLD, 14));
 		titlelabel.setForeground(Color.white);
 		titlelabel.setFont(new Font("Monotype Corsiva", Font.BOLD, 14));
 		redlabel.setForeground(Color.white);
@@ -231,6 +237,7 @@ public class Screwview {
 		explabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
 		goldlabel.setForeground(Color.white);
 		goldlabel.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
+		columnpanel.add(namelabel);
 		columnpanel.add(titlelabel);
 		columnpanel.add(redlabel);
 		columnpanel.add(bluelabel);
@@ -243,13 +250,13 @@ public class Screwview {
 		JPanel statpanel = new JPanel();
 		statpanel.setBackground(Color.black);
 		statpanel.setLayout(new BoxLayout(statpanel, BoxLayout.Y_AXIS));
-		statred = new JLabel("0000");
-		statblue = new JLabel("0000");
-		statyellow = new JLabel("0000");
-		statgreen = new JLabel("0000");
-		statrage = new JLabel("0000");
-		statexp = new JLabel("0000");
-		statgold = new JLabel("0000");
+		statred = new JLabel("0");
+		statblue = new JLabel("0");
+		statyellow = new JLabel("0");
+		statgreen = new JLabel("0");
+		statrage = new JLabel("0");
+		statexp = new JLabel("0");
+		statgold = new JLabel("0");
 		statred.setForeground(Color.white);
 		statblue.setForeground(Color.white);
 		statyellow.setForeground(Color.white);
@@ -265,6 +272,7 @@ public class Screwview {
             }
         });
 		statpanel.add(new JLabel("____"));
+		statpanel.add(new JLabel("____"));
 		statpanel.add(statred);
 		statpanel.add(statblue);
 		statpanel.add(statyellow);
@@ -272,9 +280,60 @@ public class Screwview {
 		statpanel.add(statrage);
 		statpanel.add(statexp);
 		statpanel.add(statgold);
-		
+		selectionpanel = new JPanel(); //(CW-8)
+        selectionpanel.setLayout(new BoxLayout(selectionpanel, BoxLayout.Y_AXIS));
+        playcombo = new JComboBox();
+        for(int i = 0; i < Player.getPlayerCnt(); i ++){
+        	playcombo.addItem(Player.getPlayer(i));
+        }
+        selectbutton = new JButton("Select");
+        selectbutton.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e)
+            {
+        		namelabel.setText(playcombo.getSelectedItem().toString() + " - Level " + Player.getLevel(playcombo.getSelectedItem().toString()) + " - Life 20");
+        		gridpanel.setVisible(true);
+                selectionpanel.setVisible(false);
+                hero = playcombo.getSelectedItem().toString();
+                statexp.setText(Player.getDBExp(hero));
+                statgold.setText(Player.getDBGold(hero));
+            }
+        });
+        newbutton = new JButton("New Hero");
+        newbutton.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e)
+            {
+        		heroaddpanel.setVisible(true);
+                selectionpanel.setVisible(false);
+            }
+        });
+        selectionpanel.add(playcombo);
+        selectionpanel.add(newbutton);
+        selectionpanel.add(selectbutton);
+        heroaddpanel = new JPanel(); //(CW-8)
+        heroaddpanel.setLayout(new BoxLayout(heroaddpanel, BoxLayout.Y_AXIS));
+        heronamefield = new JTextField("Add hero name");
+        submitbutton = new JButton("Submit");
+        submitbutton.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e)
+            {
+        		Player.heroadd(heronamefield.getText().toString());
+        		rob.setHero(heronamefield.getText().toString());
+        		rob.setLevel(1);
+        		gridpanel.setVisible(true);
+        		heroaddpanel.setVisible(false);
+        		namelabel.setText(rob.getHero() + " - Level 1 - Life 20");
+        		hero = rob.getHero();
+        		
+            }
+        });
+        heroaddpanel.add(heronamefield);
+        heroaddpanel.add(submitbutton);
         //end here
+		panel.add(selectionpanel);
+		panel.add(heroaddpanel);
+		heroaddpanel.setVisible(false);
         panel.add(gridpanel);
+        gridpanel.setVisible(false);
         cologridpanel.add(columnpanel);
         cologridpanel.add(statpanel);
         sidepanel.add(cologridpanel);
@@ -640,6 +699,8 @@ public class Screwview {
 			statgreen.setText(String.valueOf(rob.getMana(Color.green)));
 			statrage.setText(String.valueOf(rob.getMana(Color.white)));
 			statexp.setText(String.valueOf(rob.getMana(Color.magenta)));
+			Player.setDBexp(hero, Integer.parseInt(statexp.getText().toString()));
 			statgold.setText(String.valueOf(rob.getMana(Color.orange)));
+			Player.setDBgold(hero, Integer.parseInt(statgold.getText().toString()));
 		}
 }

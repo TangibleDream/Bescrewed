@@ -18,10 +18,11 @@ Look and feel (LF) 50%
 Not Done	LF-1	Difficult	Secure icons for each screweled. Try for shiny colors for mana and rage (white), A coin for gold.
 Not Done	LF-3	Difficult	Tool system for a two player option.
 Not Done	LF-5	Difficult	Slow down gravity feed so user can see combo action.
-Done		LF-6	Easy		Create nice look and feel for mana scoring (White on black, nice font, etc..)
+Done		LF-7	Moderate	Create Player name and level right of Jewels
 
 Classwork (CW) 100%
 Not Done	CW-7	Moderate	Add Player Level Logic, attach max mana.
+Done		CW-10	Moderate	Hero JDBC sequestered to player class.
 
 Calculations (CL) 100%
 

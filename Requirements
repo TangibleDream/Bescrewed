@@ -38,6 +38,7 @@ Not Done	LF-3	Tool system for a two player option.
 Done		LF-4	Use Labels for scores over JOption messages to allow for continuous play,
 Not Done	LF-5	Slow down gravity feed so user can see combo action.
 Done		LF-6	Create nice look and feel for mana scoring (White on black, nice font, etc..)
+Done		LF-7	Create Player name and level right of Jewels
 
 Classwork (CW) 100%
 Done		CW-1	Remove location attribute as it is covered in the view class
@@ -47,6 +48,10 @@ Done		CW-4	Create a companion array for 64 screwels.
 Done		CW-5	Sub method your blackify and gravity methods within the viewform for code reuse.
 Done		CW-6	Create player class to track mana, rage, and experience.
 Not Done	CW-7	Add Player Level Logic, attach max mana.
+Done		CW-8	Create a new hero, create hero view.
+Done		CW-9	MySQL Database for hero persistence.
+Not Done	CW-10	Hero JDBC sequestered to player class.
+
 
 Calculations (CL) 75%
 
