@@ -20,15 +20,16 @@ public class Player {
 	private JFrame frame;
 	
 	//Setters
-	public void setMana(Color clr, int value){
+	public void setMana(int clr, int value){
 		//JOptionPane.showMessageDialog(frame, "Manacolor = " + clr);
-		if (clr == Color.red) redmana = value;
-		if (clr == Color.blue) bluemana = value;
-		if (clr == Color.yellow) yellowmana = value;
-		if (clr == Color.green) greenmana = value;
-		if (clr == Color.white) rage = value;
-		if (clr == Color.magenta) experience = value;
-		if (clr == Color.orange) gold = value;
+		if (clr == 0) redmana = value;
+		if (clr == 1) yellowmana = value;
+		if (clr == 2) greenmana = value;
+		if (clr == 3) bluemana = value;
+		if (clr == 4) gold = value;
+		if (clr == 5) experience = value;
+		if (clr == 6) rage = value;
+		
 	}
 	
 	public void setExp(int value){
@@ -52,16 +53,16 @@ public class Player {
 	}
 	//Getters
 	
-	public int getMana(Color clr){
+	public int getMana(int clr){
 		//JOptionPane.showMessageDialog(frame, "value = " + clr);
 		int mana = -1;
-		if (clr == Color.red) mana = redmana;
-		if (clr == Color.blue) mana = bluemana;
-		if (clr == Color.yellow) mana = yellowmana;
-		if (clr == Color.green) mana = greenmana;
-		if (clr == Color.white) mana = rage;
-		if (clr == Color.magenta) mana = experience;
-		if (clr == Color.orange) mana = gold;
+		if (clr == 0) mana = redmana;
+		if (clr == 1) mana = yellowmana;
+		if (clr == 2) mana = greenmana;
+		if (clr == 3) mana = bluemana;
+		if (clr == 4) mana = gold;
+		if (clr == 5) mana = experience;
+		if (clr == 6) mana = rage;
 		return mana;
 	}
 	
@@ -156,7 +157,7 @@ public class Player {
 	public static void heroadd(String name){
 		try{
 	    	Connection conn = ConnectSQL("player", "heroadd");
-	    	PreparedStatement st = conn.prepareStatement("insert into playerstat values (null, '" + name + "', 0, 0);");
+	    	PreparedStatement st = conn.prepareStatement("insert into playerstat values (null, '" + name + "', 0, 0, 1);");
 	        st.execute();
 	        st.close();
 	        }
