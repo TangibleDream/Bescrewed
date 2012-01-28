@@ -40,6 +40,8 @@ public class grid extends JPanel{
 	    BufferedImage igold = null;
 	    BufferedImage iexp = null;
 	    BufferedImage irage = null;
+	    BufferedImage rage5 = null;
+	    BufferedImage irage5 = null;
 		try {
 			black = ImageIO.read(new File("black.jpg"));
 			red = ImageIO.read(new File("bigred.jpg"));
@@ -56,6 +58,8 @@ public class grid extends JPanel{
 			igold = ImageIO.read(new File("igold.jpg"));
 			iexp = ImageIO.read(new File("ipurple.jpg"));
 			irage = ImageIO.read(new File("iskull.gif"));
+			rage5 = ImageIO.read(new File("skull5.gif"));
+			irage5 = ImageIO.read(new File("iskull5.gif"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +81,10 @@ public class grid extends JPanel{
 	    		case -1:
 	    			g.drawImage(black, s * c, s * r, s, s, null);
 	    			screwy[count].setMColor1(-1);
+	    			break;
+	    		case -2:
+	    			g.drawImage(rage5, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(-2);
 	    			break;
 	    		case 0:
 	    			g.drawImage(red, s * c, s * r, s, s, null);
@@ -134,19 +142,21 @@ public class grid extends JPanel{
 	    			g.drawImage(irage, s * c, s * r, s, s, null);
 	    			screwy[count].setMColor1(13);
 	    			break;
+	    		case 14:
+	    			g.drawImage(irage5, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(14);
+	    			break;
 	    		}
 	    		count ++;
 	    	}
 	    }
-	 
-	    //g.clearRect(0,0,320,320);
-	    //g.drawImage(red, 0, 0, 40, 40,  null);
-	    //g.drawImage(blue, 40, 0, 40, 40,  null);
-	    //g.drawImage(yellow, 80, 0, 40, 40,  null);
-	    //g.drawImage(green, 120, 0, 40, 40,  null);
 	  }
 	 public void inverse(int value){
 		 boolean done = false;
+		 if (screwy[value].getMColor1() == -2 && done == false){
+			 screwy[value].setMColor1(14);
+			 done = true;
+		 }
 		 if (screwy[value].getMColor1() == 0 && done == false){
 			 screwy[value].setMColor1(7);
 			 done = true;
@@ -202,7 +212,11 @@ public class grid extends JPanel{
 		 if (screwy[value].getMColor1() == 13 && done == false){
 			 screwy[value].setMColor1(6);
 			 done = true;
-		 }  	
+		 } 
+		 if (screwy[value].getMColor1() == 14 && done == false){
+			 screwy[value].setMColor1(-2);
+			 done = true;
+		 }  
 		 initial = false;
 	 }
 	 public void setJewel(int jn, int cn){

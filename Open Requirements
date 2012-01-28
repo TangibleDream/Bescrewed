@@ -13,13 +13,12 @@ Not Done    CO-14	Difficult	Start crafting a spell.
 Not	Done	CO-15	Moderate	Set maximum manas extended by level increase.
 Not Done	CO-16	Moderate	Jewels can only switch with adjacent Jewel, Top/Bottom or Left/Right only.
 Done		CO-18	Easy		Create throttle for Multiplier gems.
+Not Done	CO-18.1	Moderate 	Set CO-18 for Graphics Image
  
 Look and feel (LF) 50%
-Not Done	LF-1	Difficult	Secure icons for each screweled. Try for shiny colors for mana and rage (white), A coin for gold.
 Not Done	LF-3	Difficult	Tool system for a two player option.
 Not Done	LF-5	Difficult	Slow down gravity feed so user can see combo action.
-Done		LF-7	Moderate	Create Player name and level right of Jewels
-Not Done	LF-8	Difficult	Employ alternative canvas vs scope creeped button grid.
+Done		LF-8	Difficult	Employ alternative canvas vs misused button grid.
 
 Classwork (CW) 100%
 Not Done	CW-7	Moderate	Add Player Level Logic, attach max mana.

@@ -106,14 +106,6 @@ public class Screwview {
 	        			combocnt ++;
 	        			contiguouscheck(false);
 	        			blackify();
-	        			/*JOptionPane.showMessageDialog(frame, "Rob's Score \n" +
-	       					 "Red Mana:     " + rob.getMana(Color.red) + "\n" +
-	       					 "Blue Mana:    " + rob.getMana(Color.blue) + "\n" +
-	       					 "Yellow Mana:  " + rob.getMana(Color.yellow) + "\n" +
-	       					 "Green Mana:   " + rob.getMana(Color.green) + "\n" +
-	       					 "Rage:  		" + rob.getMana(Color.white) + "\n" +
-	       					 "Exp:  		" + rob.getMana(Color.magenta) + "\n" +
-	       					 "Gold: 		" + rob.getMana(Color.orange));*/
 	        			updatescore();
 	        			}
 	        			Border lineBorder = new LineBorder(Color.gray);
@@ -505,7 +497,7 @@ public class Screwview {
 							case 6:
 								gridly.setJewel(i, 6);
 								if (d.nextInt(10) < 2){
-									//pbutton[i].setText("5");
+									gridly.setJewel(i, -2);
 								}
 								break;
 							/*case 7:
@@ -544,6 +536,17 @@ public class Screwview {
 				done = true;
 				//JOptionPane.showMessageDialog(frame, "done = " + done + " blackcount = " + blackcount);
 			}
+			/*try
+
+			{
+				Thread.sleep(125);
+			} catch (InterruptedException ie)
+
+			{
+
+				ie.printStackTrace();
+
+			} //Doesn't Work
 		/*while black
 		 * move jewels into black spots
 		*/
@@ -558,21 +561,12 @@ public class Screwview {
 		if (screwel[i].ToRemove()){
 			gridly.setJewel(i, -1);
 			screwel[i].setToRemove(false);
-			gridly.repaint();
 		}
 	}
-		/*try
-
-		{
-			Thread.sleep(1000);
-		} catch (InterruptedException ie)
-
-		{
-
-			ie.printStackTrace();
-
-		}*/ //Doesn't Work
-		//JOptionPane.showMessageDialog(frame, "See Black! ");	
+		
+			
+		gridly.repaint();
+		//JOptionPane.showMessageDialog(frame, "See Black! ");
 	}
 
 
@@ -587,21 +581,42 @@ public class Screwview {
 			done = false;
 			screwel[i].calcXY(i);	  //2nd Calculates XY coordinate.
 			while (done == false){
+				//JOptionPane.showMessageDialog(frame, "i = " + i + ",left = " + leftcount + ",right = " + rightcount + ",top = " + topcount + ",bottom = " + bottomcount + ",jewelcolor = " + gridly.getJewel(i));
 			if ((screwels.getY()+rightcount) < 7){  //3rd determine how many contiguous jewels to the right?
+				if(gridly.getJewel(i) == -2  || gridly.getJewel(i) == 6){
+					if(gridly.getJewel(i+1+rightcount) == -2 || gridly.getJewel(i+1+rightcount) == 6){
+						rightcount ++;
+						//JOptionPane.showMessageDialog(frame, "5 skull logic on the right count occurs " + rightcount);
+					}
+					else{
+						done = true;}
+					//JOptionPane.showMessageDialog(frame, "A right check for 6 did occur. right = " + rightcount);
+				}
+				else{
 				//if (pbutton[i].getBackground() == pbutton[i+1+rightcount].getBackground() || pbutton[i+1+rightcount].getBackground() == Color.cyan){
 				if (gridly.getJewel(i) == gridly.getJewel(i+1+rightcount)){
 					rightcount ++;
+					//JOptionPane.showMessageDialog(frame, "rightcount = " + rightcount);
 					//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Right Count = "+ rightcount + " " + pbutton[i].getBackground());
 				}
 				else{
 				done = true;}
-			}
+				}}
 			else{
 				done = true;}
 			}
 			done = false;
 			while (done == false){
 			if ((screwels.getY()-leftcount) > 0){ //4th determine how many contiguous jewels to the left?
+				if(gridly.getJewel(i)== -2  || gridly.getJewel(i)== 6){
+					if (gridly.getJewel((i-1)-leftcount) == -2 || gridly.getJewel((i-1)-leftcount) == 6){
+						leftcount ++;
+						//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Left Count = "+ leftcount);
+					}
+					else{
+						done = true;}
+				}
+				else{
 				//if (pbutton[i].getBackground() == pbutton[(i-1)-leftcount].getBackground() || pbutton[(i-1)-leftcount].getBackground() == Color.cyan){
 				if (gridly.getJewel(i) == gridly.getJewel((i-1)-leftcount)){
 					leftcount ++;
@@ -609,13 +624,22 @@ public class Screwview {
 				}
 				else{
 					done = true;}
-			}
+			}}
 			else{
 				done = true;}
 			}
 			done = false;
 			while (done == false){
 			if ((screwels.getX()-topcount) > 0){ //5th determine how many contiguous jewels above?
+				if(gridly.getJewel(i)== -2  || gridly.getJewel(i)== 6){
+					if (gridly.getJewel((i-8)-(8*topcount)) == -2 || gridly.getJewel((i-8)-(8*topcount)) == 6){
+						topcount ++;
+						//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Top Count = "+ topcount);
+					}
+					else{
+						done = true;}
+				}
+				else{
 				//if (pbutton[i].getBackground() == pbutton[(i-8)-(8*topcount)].getBackground() || pbutton[(i-8)-(8*topcount)].getBackground() == Color.cyan){
 				if (gridly.getJewel(i) == gridly.getJewel((i-8)-(8*topcount))){
 					topcount ++;
@@ -623,13 +647,22 @@ public class Screwview {
 				}
 				else{
 					done = true;}
-			}
+			}}
 			else{
 				done = true;}
 			}
 			done = false;
 			while (done == false){
 			if ((screwels.getX()+bottomcount) < 7){ //6th determine how many contiguous jewels below?
+				if(gridly.getJewel(i)== -2  || gridly.getJewel(i)== 6){
+					if (gridly.getJewel((i+8)+(8*bottomcount)) == -2 || gridly.getJewel((i+8)+(8*bottomcount)) == 6){
+						bottomcount ++;
+						//JOptionPane.showMessageDialog(frame, "X = " + screwels.getX() + ",Y = " + screwels.getY()+",Bottom Count = "+ bottomcount);
+					}
+					else{
+						done = true;}
+				}
+				else{
 				//if (pbutton[i].getBackground() == pbutton[(i+8)+(8*bottomcount)].getBackground() || pbutton[i+8+(8*bottomcount)].getBackground() == Color.cyan){
 				if (gridly.getJewel(i) == gridly.getJewel((i+8)+(8*bottomcount))){
 					bottomcount ++;
@@ -637,13 +670,13 @@ public class Screwview {
 				}
 				else{
 					done = true;}
-			}
+			}}
 			else{
 				done = true;}
 			}
 			if (bottomcount + topcount > 1 || leftcount + rightcount > 1){ //7th determine if enough contiguous jewels to remove
 				screwel[i].setToRemove(true);
-				if (pbutton[i].getText()=="5"){
+				if (gridly.getJewel(i) == -2){
 					if (screwels.getY() > 0) screwel[i-1].setToRemove(true);
 					if (screwels.getY() < 7) screwel[i+1].setToRemove(true);
 					if (screwels.getX() > 0) screwel[i-8].setToRemove(true);
@@ -658,8 +691,8 @@ public class Screwview {
 				 * */
 				if (value == false){  //CL-2
 					rob.setMana(gridly.getJewel(i), rob.getMana(gridly.getJewel(i)) + 1); //8th attribute mana for removed jewels
-					if (pbutton[i].getText()=="5"){ //9th allow for 5 rage explosive jewels
-						//rob.setMana(Color.white, (rob.getMana(Color.white) + 4));
+					if (gridly.getJewel(i) == -2){ //9th allow for 5 rage explosive jewels
+						rob.setMana(6, (rob.getMana(6) + 5));
 					}
 				}
 			}
@@ -703,32 +736,33 @@ public class Screwview {
 			screwels.calcXY(count);
 			if (screwels.getY() < 5)		  //2. Right check
 			{
-				if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count+3].getBackground()){
+				//if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count+3].getBackground()){
+				if (gridly.getJewel(count) == gridly.getJewel(count+1) && (gridly.getJewel(count) == (gridly.getJewel(count+3)))){
 					value = true;			 // 2.1 Flat Across One
 				}
-				if (pbutton[count].getBackground() == pbutton[count+2].getBackground() && pbutton[count].getBackground() == pbutton[count+3].getBackground()){
+				if (gridly.getJewel(count) == gridly.getJewel(count+2) && gridly.getJewel(count) == gridly.getJewel(count+3)){
 					value = true;			 // //2.2 Flat Across Two
 				}
 				if (screwels.getX() > 0){	 // 2.3 Check for frown.
-					if (pbutton[count].getBackground() == pbutton[count-7].getBackground() && pbutton[count].getBackground() == pbutton[count+2].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count-7) && gridly.getJewel(count) == gridly.getJewel(count+2)){
 						value = true;
 					}
-					if (pbutton[count].getBackground() == pbutton[count-7].getBackground() && pbutton[count].getBackground() == pbutton[count-6].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count-7) && gridly.getJewel(count) == gridly.getJewel(count-6)){
 						value = true;		// 2.4 Backward 7 (BUG?)
 					}
-					if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count-6].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+1) && gridly.getJewel(count) == gridly.getJewel(count-6)){
 						value = true;		// 2.5 Backward L
 					}
 					
 				}
 				if (screwels.getX() < 7){	 // 2.6 Check for smile.
-					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+2].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+9) && gridly.getJewel(count) == gridly.getJewel(count+2)){
 						value = true;
 					}
-					if (pbutton[count].getBackground() == pbutton[count+1].getBackground() && pbutton[count].getBackground() == pbutton[count+10].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+1) && gridly.getJewel(count) == gridly.getJewel(count+10)){
 						value = true;	     // 2.7 Check 7.
 					}
-					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+10].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+9) && gridly.getJewel(count) == gridly.getJewel(count+10)){
 						value = true;	     // 2.8 Check L. (BUG?)
 					}
 				}
@@ -736,31 +770,31 @@ public class Screwview {
 			
 			if (screwels.getX() < 5)		  //3. Bottom check
 			{
-				if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+24].getBackground()){
+				if (gridly.getJewel(count) == gridly.getJewel(count+8) && gridly.getJewel(count) == gridly.getJewel(count+24)){
 					value = true; // 3.1 Flat Down one
 				}
-				if (pbutton[count].getBackground() == pbutton[count+16].getBackground() && pbutton[count].getBackground() == pbutton[count+24].getBackground()){
+				if (gridly.getJewel(count) == gridly.getJewel(count+16) && gridly.getJewel(count) == gridly.getJewel(count+24)){
 					value = true; // 3.2 Flat Down Two
 				}
 				if (screwels.getY() <7){
-					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+16].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+9) && gridly.getJewel(count) == gridly.getJewel(count+16)){
 						value = true; // 3.3 Close Parenthesis
 					}
-					if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+17].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+8) && gridly.getJewel(count) == gridly.getJewel(count+17)){
 						value = true; // 3.4 Long L
 					}
-					if (pbutton[count].getBackground() == pbutton[count+9].getBackground() && pbutton[count].getBackground() == pbutton[count+17].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+9) && gridly.getJewel(count) == gridly.getJewel(count+17)){
 						value = true; // 3.5 Long 7
 					}
 				}
 				if (screwels.getY() > 0){
-					if (pbutton[count].getBackground() == pbutton[count+7].getBackground() && pbutton[count].getBackground() == pbutton[count+16].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+7) && gridly.getJewel(count) == gridly.getJewel(count+16)){
 						value = true; // 3.6 Open Parenthesis
 					}
-					if (pbutton[count].getBackground() == pbutton[count+7].getBackground() && pbutton[count].getBackground() == pbutton[count+15].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+7) && gridly.getJewel(count) == gridly.getJewel(count+15)){
 						value = true; // 3.7 Long Backwards 7
 					}
-					if (pbutton[count].getBackground() == pbutton[count+8].getBackground() && pbutton[count].getBackground() == pbutton[count+15].getBackground()){
+					if (gridly.getJewel(count) == gridly.getJewel(count+8) && gridly.getJewel(count) == gridly.getJewel(count+15)){
 						value = true; // 3.8 J
 					}
 				}
@@ -772,7 +806,8 @@ public class Screwview {
 	}
 	private void manadrain(){
 		for (int i = 0; i < 64; i ++){
-			pbutton[i].setBackground(Color.black);
+			//pbutton[i].setBackground(Color.black);
+			gridly.setJewel(i, -1);
 		}
 		contiguouscheck(false);
 		if (isSwitchable()){

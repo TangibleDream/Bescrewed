@@ -15,7 +15,7 @@ Continual Operations (CO) 38%
 Done		CO-1	Create a means of removing 3 or more contiguous Screwels.
 Done 	    CO-1.1	Set CO-1 for graphics image.
 Done		CO-2	Consider a difference between vertical, horizontal, and explosive.
-Not Done	CO-2.1	Set CO-2  for graphics image.
+Done		CO-2.1	Set CO-2  for graphics image.
 Done		CO-3	Non removed but existing Screwels above removed Screwels should fall into new empty spaces.
 Done    	CO-3.1	Set CO-3 for graphics image. 
 Done		CO-4	Mana, Coin, Wisdom, or Rage should be tallied from removed Screwels.
@@ -31,11 +31,11 @@ Done		CO-8.1	Set CO-8 for Graphics Image
 Done	    CO-9	User can de-select an initial jewel chosen in  error, by selecting the same gem.
 Done		CO-9.1	Set CO-9 for Graphics Image
 Done		CO-10	Create a 5 rage jewel
-Not Done	CO-10.1	Set CO-10 for Graphics Image
+Done		CO-10.1	Set CO-10 for Graphics Image
 Not Done	CO-11	Create Multiplier wild jewel 
 Not Done	CO-12	Create a time sensitive hint / Consider a button option.
 Done		CO-13   Develop mana drain.
-Not Done	CO-13.1	Set CO-13 for Graphics Image
+Done		CO-13.1	Set CO-13 for Graphics Image
 Not Done    CO-14	Start crafting a spell.
 Not	Done	CO-15	Set maximum manas extended by level increase.
 Not Done	CO-16	Jewels can only switch with adjacent Jewel, Top/Bottom or Left/Right only.
@@ -57,6 +57,7 @@ Done		LF-8	Difficult	Employ alternative canvas vs scope creeped button grid.
 Classwork (CW) 100%
 Done		CW-1	Remove location attribute as it is covered in the view class
 Done		CW-2	Add black Screwel type to indicate a removed Screwel.
+Done		CW-2.1	Set CW-2 for Graphics Image
 Done		CW-3	Add boolean to be removed, defaulted to false.
 Done		CW-4	Create a companion array for 64 screwels.
 Done		CW-5	Sub method your blackify and gravity methods within the viewform for code reuse.
