@@ -6,6 +6,8 @@ Requirements.
 Initial Setup (IS) 100%
 Done		IS-1		Create Grid of 64 Places
 Done		IS-2		Create 7 Screwel types
+Done		IS-2.1		4 Additional screwel types added for a total of 11. 4 Manna, Rage, Rage 5, Experience, Gold, and 3X, 4X, and 
+						5X multiplier jewels
 Done		IS-3		Fill 64 places with screwels of different types at random with some constraints.
 Done		IS-3.1  	At initial placement, no screwels can be set with 3 or more matching screwels in a role, either horizontal 
 						or vertical.
@@ -24,7 +26,6 @@ Done		CO-5	Remaining deficit should be replaced by new, randomly typed Screwels.
 Done    	CO-5.1	Set CO-5 for Graphics Image 
 Done	    CO-6	Add an exit button.
 Done		CO-7	Create a button action to handle jewel switching.
-Done		CO-7.1	Set CO-7 for Graphics Image
 Done		CO-8	Jewel switching action button should know whether it is selecting an initial jewel or a 2nd jewel to potentially
 					swap with
 Done		CO-8.1	Set CO-8 for Graphics Image

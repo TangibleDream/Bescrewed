@@ -24,7 +24,7 @@ public class grid extends JPanel{
 		int count = 0;
 		Random rand;
 		long now;
-		int s = 40;
+		int s = 62;
 		BufferedImage black = null;
 	    BufferedImage red = null;
 	    BufferedImage blue = null;
@@ -33,6 +33,9 @@ public class grid extends JPanel{
 	    BufferedImage gold = null;
 	    BufferedImage exp = null;
 	    BufferedImage rage = null;
+	    BufferedImage multi3 = null;
+	    BufferedImage multi4 = null;
+	    BufferedImage multi5 = null;
 	    BufferedImage ired = null;
 	    BufferedImage iblue = null;
 	    BufferedImage iyellow = null;
@@ -42,6 +45,9 @@ public class grid extends JPanel{
 	    BufferedImage irage = null;
 	    BufferedImage rage5 = null;
 	    BufferedImage irage5 = null;
+	    BufferedImage imulti3 = null;
+	    BufferedImage imulti4 = null;
+	    BufferedImage imulti5 = null;
 		try {
 			black = ImageIO.read(new File("black.jpg"));
 			red = ImageIO.read(new File("bigred.jpg"));
@@ -60,6 +66,12 @@ public class grid extends JPanel{
 			irage = ImageIO.read(new File("iskull.gif"));
 			rage5 = ImageIO.read(new File("skull5.gif"));
 			irage5 = ImageIO.read(new File("iskull5.gif"));
+			multi3 = ImageIO.read(new File("multi3.jpg"));
+			multi4 = ImageIO.read(new File("multi4.jpg"));
+			multi5 = ImageIO.read(new File("multi5.jpg"));
+			imulti3 = ImageIO.read(new File("imulti3.jpg"));
+			imulti4 = ImageIO.read(new File("imulti4.jpg"));
+			imulti5 = ImageIO.read(new File("imulti5.jpg"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +97,18 @@ public class grid extends JPanel{
 	    		case -2:
 	    			g.drawImage(rage5, s * c, s * r, s, s, null);
 	    			screwy[count].setMColor1(-2);
+	    			break;
+	    		case -3:
+	    			g.drawImage(multi3, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(-3);
+	    			break;
+	    		case -4:
+	    			g.drawImage(multi4, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(-4);
+	    			break;
+	    		case -5:
+	    			g.drawImage(multi5, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(-5);
 	    			break;
 	    		case 0:
 	    			g.drawImage(red, s * c, s * r, s, s, null);
@@ -146,6 +170,18 @@ public class grid extends JPanel{
 	    			g.drawImage(irage5, s * c, s * r, s, s, null);
 	    			screwy[count].setMColor1(14);
 	    			break;
+	    		case 15:
+	    			g.drawImage(imulti3, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(15);
+	    			break;
+	    		case 16:
+	    			g.drawImage(imulti4, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(16);
+	    			break;
+	    		case 17:
+	    			g.drawImage(imulti5, s * c, s * r, s, s, null);
+	    			screwy[count].setMColor1(17);
+	    			break;
 	    		}
 	    		count ++;
 	    	}
@@ -155,6 +191,18 @@ public class grid extends JPanel{
 		 boolean done = false;
 		 if (screwy[value].getMColor1() == -2 && done == false){
 			 screwy[value].setMColor1(14);
+			 done = true;
+		 }
+		 if (screwy[value].getMColor1() == -3 && done == false){
+			 screwy[value].setMColor1(15);
+			 done = true;
+		 }
+		 if (screwy[value].getMColor1() == -4 && done == false){
+			 screwy[value].setMColor1(16);
+			 done = true;
+		 }
+		 if (screwy[value].getMColor1() == -5 && done == false){
+			 screwy[value].setMColor1(17);
 			 done = true;
 		 }
 		 if (screwy[value].getMColor1() == 0 && done == false){
@@ -216,7 +264,19 @@ public class grid extends JPanel{
 		 if (screwy[value].getMColor1() == 14 && done == false){
 			 screwy[value].setMColor1(-2);
 			 done = true;
-		 }  
+		 }
+		 if (screwy[value].getMColor1() == 15 && done == false){
+			 screwy[value].setMColor1(-3);
+			 done = true;
+		 } 
+		 if (screwy[value].getMColor1() == 16 && done == false){
+			 screwy[value].setMColor1(-4);
+			 done = true;
+		 } 
+		 if (screwy[value].getMColor1() == 17 && done == false){
+			 screwy[value].setMColor1(-5);
+			 done = true;
+		 } 
 		 initial = false;
 	 }
 	 public void setJewel(int jn, int cn){
