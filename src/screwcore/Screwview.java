@@ -2,6 +2,7 @@ package screwcore;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,20 +19,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 //import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 
 public class Screwview {
 	
 	private JFrame frame;
-	private JPanel panel, selectionpanel, heroaddpanel, gridpanel, columnpanel, statpanel, cologridpanel, sidepanel;
+	private JPanel panel, selectionpanel, heroaddpanel, columnpanel, statpanel, cologridpanel, sidepanel, newselectpanel;
 	private Container contentPane;
 	private long now;
 	private int rightcount, leftcount, topcount, bottomcount = 0;
 	Random c, d;
 	private boolean done;
 	private screwels[] screwel;
-	private JButton[] pbutton;
 	private int jewel1 = -1;
 	private int jewel2 = -1;
 	private int combocnt = 0;
@@ -154,7 +152,6 @@ public class Screwview {
 			
 		});
 		screwel = new screwels[64];
-		pbutton = new JButton[64];
 		for (int i = 0;i < 64; i ++){
 			screwel[i] = new screwels();
 		}
@@ -241,6 +238,9 @@ public class Screwview {
 		statexp.setForeground(Color.white);
 		statgold.setForeground(Color.white);
 		exitbutton = new JButton("Exit");
+		exitbutton.setBackground(Color.BLACK);
+		exitbutton.setForeground(Color.white);
+		exitbutton.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
 		exitbutton.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e)
             {
@@ -262,25 +262,38 @@ public class Screwview {
 		 * 
 		 * */
 		selectionpanel = new JPanel(); //(CW-8)
+		selectionpanel.setBackground(Color.black);
         selectionpanel.setLayout(new BoxLayout(selectionpanel, BoxLayout.Y_AXIS));
         playcombo = new JComboBox();
+        Dimension width = new Dimension();
+        width.setSize(10, 10);
+        playcombo.setPreferredSize(width);
         for(int i = 0; i <= Player.getPlayerCnt(); i ++){
         	playcombo.addItem(Player.getPlayer(i));
         }
         selectbutton = new JButton("Select");
+        selectbutton.setBackground(Color.BLACK);
+        selectbutton.setForeground(Color.white);
+        selectbutton.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
         selectbutton.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e)
             {
+        		if(playcombo.getSelectedItem().toString() != ""){
         		namelabel.setText(playcombo.getSelectedItem().toString() + " - Level " + Player.getLevel(playcombo.getSelectedItem().toString()) + " - Life 20");
         		//gridpanel.setVisible(true);
         		gridly.setVisible(true);
                 selectionpanel.setVisible(false);
                 hero = playcombo.getSelectedItem().toString();
                 statexp.setText(Player.getDBExp(hero));
+                rob.setMana(5, Integer.parseInt(Player.getDBExp(hero).trim()));
                 statgold.setText(Player.getDBGold(hero));
-            }
+                rob.setMana(4, Integer.parseInt(Player.getDBGold(hero).trim()));
+            }}
         });
         newbutton = new JButton("New Hero");
+        newbutton.setBackground(Color.BLACK);
+        newbutton.setForeground(Color.white);
+        newbutton.setFont(new Font("Monotype Corsiva", Font.PLAIN, 14));
         newbutton.addActionListener(new ActionListener(){
         	public void actionPerformed(ActionEvent e)
             {
@@ -289,8 +302,12 @@ public class Screwview {
             }
         });
         selectionpanel.add(playcombo);
-        selectionpanel.add(newbutton);
-        selectionpanel.add(selectbutton);
+        newselectpanel = new JPanel();
+        newselectpanel.setBackground(Color.black);
+        newselectpanel.setLayout(new BoxLayout(newselectpanel, BoxLayout.X_AXIS));
+        newselectpanel.add(newbutton);
+        newselectpanel.add(selectbutton);
+        selectionpanel.add(newselectpanel);
         /*
 		 *1.3 Hero Creation
 		 * 
